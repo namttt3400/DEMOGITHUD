@@ -1,0 +1,68 @@
+
+dbschema: public
+applicationName: demo
+DB_HOST: 127.0.0.1
+DB_NAME: demojava
+DB_URL: jdbc:postgresql://${DB_HOST:127.0.0.1}:${DB_PORT:5432}/${DB_NAME:springboot_demo1}?stringtype=unspecified
+DB_USERNAME: postgres
+DB_PASSWORD: 12345Nam@
+ANSI_STATUS: never
+DATE_FORMAT: yyyy-MM-dd'T'HH:mm:ssZ
+TZ: Asia/Ho_Chi_Minh
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+  shutdown: graceful
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: ${DATE_FORMAT}
+    time-zone: ${TZ}
+  application:
+    name: hcm-generic
+  output:
+    ansi:
+      enabled: never
+  messages:
+    basename: language/message
+    encoding: UTF-8
+    cache-duration: -1
+    jpa:
+      open-in-view: false
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          default_schema: ${dbschema}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: ${dbschema}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  flyway:
+    schemas:
+      - ${dbschema}
+    enabled: false
+  servlet:
+    multipart:
+      #Enable multipart uploads
+      enabled: true
+      #Threshold after which files are written to disk.
+      file-size-threshold: 2KB
+      # total file size cannot exceed 20MB
+      max-file-size: 500MB
+      # total request size for a multipart/form-data cannot exceed 200MB
+      max-request-size: 510MB
